@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+    <bean id="visitorWriteTaskJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- durability 表示任务完成之后是否依然保留到数据库，默认false   -->
+        <property name="durability" value="false"/>
+        <property name="jobClass" value="net.yuxianghe.task.VisitorWriteTask"/>
+    </bean>
+    <bean id="cornTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="visitorWriteTaskJobDetail"/>
+        <!-- 每5分钟执行一次 -->
+        <property name="cronExpression" value="0 0/5 * * * ?"/>
+    </bean>
+
+    <!-- 定义核心调度器 -->
+    <bean id="scheduler" class="net.savebar.task.VisitorSchedulerFactoryBeanWithShutdownDelay" destroy-method="destroy">
+        <property name="triggers" ref="cornTrigger"/>
+    </bean>
+
+</beans>

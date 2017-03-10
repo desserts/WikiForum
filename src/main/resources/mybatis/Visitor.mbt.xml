@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.savebar.dao.VisitorDao">
+
+
+    <!--private long id;-->
+    <!--private String ip;-->
+    <!--private Timestamp create_time;-->
+    <!--private String ua; //ua-->
+
+    <select id="find" parameterType="long" resultType="net.savebar.bean.Visitor">
+        SELECT * FROM visitor WHERE id=#{id}
+    </select>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM visitor WHERE id=#{id}
+    </delete>
+
+    <insert id="save" parameterType="net.savebar.bean.Visitor" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO visitor (ip, create_time,ua) VALUES (#{ip},#{create_time},#{ua})
+    </insert>
+
+    <insert id="update" parameterType="net.savebar.bean.Visitor">
+        update visitor SET ip=#{ip},create_time=#{create_time},ua=#{ua},  WHERE id=#{id}
+    </insert>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM visitor
+    </select>
+
+    <select id="listByPage" resultType="net.savebar.bean.Visitor">
+        SELECT * FROM visitor ORDER BY create_time DESC LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="countByDate" resultType="long">
+        select count(*) from visitor  where ( create_time <![CDATA[>]]> #{start_time} AND create_time <![CDATA[<]]> #{end_time} )
+    </select>
+
+    <insert id="batchSave" useGeneratedKeys="true" parameterType="java.util.List">
+        INSERT INTO visitor (ip, create_time,ua) VALUES
+        <foreach collection="visitorList" item="item" index="index" separator="," >
+            (#{item.ip},#{item.create_time},#{item.ua})
+        </foreach>
+    </insert>
+
+
+</mapper>
