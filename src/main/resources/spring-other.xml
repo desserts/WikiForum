@@ -6,7 +6,7 @@
     <bean id="visitorWriteTaskJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <!-- durability 表示任务完成之后是否依然保留到数据库，默认false   -->
         <property name="durability" value="false"/>
-        <property name="jobClass" value="net.yuxianghe.task.VisitorWriteTask"/>
+        <property name="jobClass" value="net.savebar.task.VisitorWriteTask"/>
     </bean>
     <bean id="cornTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="visitorWriteTaskJobDetail"/>
