@@ -44,4 +44,18 @@
            timeToLiveSeconds="1205"
            overflowToDisk="true"/>
 
+    <cache name="Bar"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="1112"
+           timeToLiveSeconds="1215"
+           overflowToDisk="true"/>
+
+    <cache name="Topic"
+           maxElementsInMemory="2000"
+           eternal="false"
+           timeToIdleSeconds="1132"
+           timeToLiveSeconds="1245"
+           overflowToDisk="true"/>
+
 </ehcache>

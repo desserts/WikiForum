@@ -1,12 +1,27 @@
 package net.savebar.bean;
 
+import java.io.Serializable;
+
 /**
  * 用户
  * Created by hxy on 16/9/4.
  */
-public class User {
+public class User implements Serializable{
+
+    private static final long serialVersionUID = -1426851343640326880L;
+
 
     public static final long ROOT_LEVEL = 0;
+
+
+    /**
+     * 得到表名
+     *
+     * @return String
+     */
+    public static String tableName() {
+        return "user";
+    }
 
     private long id;
     private String name;

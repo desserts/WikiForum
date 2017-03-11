@@ -1,6 +1,7 @@
 package net.savebar.dao;
 
 import net.savebar.bean.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface UserDao {
      *
      * @return List
      */
+    @Cacheable(value = "User", key = "#root.methodName")
     List<User> list();
 
 }

@@ -9,12 +9,14 @@ import java.sql.Timestamp;
  */
 public class Visitor implements Serializable {
 
+    private static final long serialVersionUID = -4237267290955722835L;
+
     /**
      * 得到表名
      *
      * @return String
      */
-    public static String TableName() {
+    public static String tableName() {
         return "visitor";
     }
 

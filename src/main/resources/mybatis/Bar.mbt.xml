@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.savebar.dao.BarDao">
+
+    <!--private long id;-->
+    <!--private long catalog;-->
+    <!--private String name;-->
+    <!--private String description;-->
+    <!--private Timestamp create_time;-->
+
+    <select id="list" resultType="net.savebar.bean.Bar">
+        SELECT * FROM bar
+    </select>
+
+    <insert id="save" parameterType="net.savebar.bean.Bar" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bar (catalog, name,description,create_time) VALUES (#{catalog},#{name},#{description},#{create_time})
+    </insert>
+
+    <select id="find" parameterType="long" resultType="net.savebar.bean.Bar">
+        SELECT * FROM bar WHERE id=#{id}
+    </select>
+
+
+</mapper>

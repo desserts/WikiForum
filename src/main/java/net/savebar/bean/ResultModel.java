@@ -1,27 +1,36 @@
 package net.savebar.bean;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * ResultModel
  * Created by hxy on 17/1/4.
  */
-public class ResultModel<T> {
-    public final static int EXCEPTION_CODE = -1;  //服务器内部错误
-    public final static int FAIL_CODE = 0;   //失败
-    public final static int SUCCESS_CODE = 1;  //成功
+public class ResultModel<T> implements Serializable {
+
+    private static final long serialVersionUID = -6965042440878131675L;
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    private static final Logger logger = LoggerFactory.getLogger(ResultModel.class);
+
+    public final static long EXCEPTION_CODE = -1;  //服务器内部错误
+    public final static long FAIL_CODE = 0;   //失败
+    public final static long SUCCESS_CODE = 200;  //成功
 
 
-    private int code;
+    private long code;
     private String message;
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date time;
     private T result;
 
-    public ResultModel(int code, String message, T result) {
+    public ResultModel(long code, String message, T result) {
         this.result = result;
         this.code = code;
         this.message = message;
@@ -36,15 +45,20 @@ public class ResultModel<T> {
 
 
     public String json() {
-        return JSON.toJSONString(this);
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage());
+            return "";
+        }
     }
 
 
-    public int getCode() {
+    public long getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(long code) {
         this.code = code;
     }
 
